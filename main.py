@@ -1,6 +1,7 @@
 from enum import Enum
 import time
 import tkinter as tk
+import os
 
 class Resource(Enum):
     """Resource types for the game."""
@@ -115,9 +116,24 @@ if __name__ == "__main__":
         minutes = (elapsed_time % 3600) // 60
         seconds = elapsed_time % 60
         timer_label.config(text=f"{hours:02d}:{minutes:02d}:{seconds:02d}")
+
+        #entkommentieren, um fixes Ende festzusetzen
+        #if elapsed_time >= 1800:  
+        #    on_closing()
+
         root.after(1000, update_timer)  # schedule the next update in 1 second
     
     update_timer()
+
+    def on_closing():
+        with open("resources.txt", "w") as f:
+            f.write("Vergangene Zeit: " + timer_label.cget("text") + "\n")
+            for resource, amount in game.inventory.items():
+                f.write(f"{resource.name}: {amount}\n")
+
+        root.destroy()
+
+    root.protocol("WM_DELETE_WINDOW", on_closing)
     
     root.mainloop()
 
