@@ -158,6 +158,9 @@ if __name__ == "__main__":
     park_button = tk.Button(root, text="Bauen", command=lambda: game.build(park))
     park_button.place(x=60, y=650)
 
+    #building upgrade labels and buttons
+
+
     start = time.time()
 
     def update_timer():
@@ -173,10 +176,19 @@ if __name__ == "__main__":
 
         #calculate production for each building
         for building in game.buildings:
-            if building.production_type and building.production_amount > 0:
-                
-                if elapsed_time % building.production_time == 0:
-                    game.update_inventory(building.production_type, building.production_amount)
+            if elapsed_time % building.production_time == 0:
+                if building.production_type and building.production_amount > 0:
+                    if building.consumption_type:
+                        if isinstance(building.consumption_type, tuple):
+                            if all(game.inventory[res] >= building.consumption_amount for res in building.consumption_type):
+                                for res in building.consumption_type:
+                                    game.update_inventory(res, -building.consumption_amount)
+                                if elapsed_time % building.production_time == 0:
+                                    game.update_inventory(building.production_type, building.production_amount)
+                        else:
+                            if game.inventory[building.consumption_type] >= building.consumption_amount:
+                                game.update_inventory(building.consumption_type, -building.consumption_amount)
+                        game.update_inventory(building.production_type, building.production_amount)
 
         root.after(1000, update_timer)  # schedule the next update in 1 second
     
