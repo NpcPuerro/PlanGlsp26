@@ -23,6 +23,30 @@ class Building:
         self.production_amount = production_amount
         self.production_time = production_time
 
+    def upgrade_consumption(self):
+        """Upgrade the consumption amount of the building."""
+        if self.consumption_amount > 0:
+            self.consumption_amount -= 1
+        if self.consumption_amount == 1:
+            match self.name:
+                            case "Steinbruch":
+                                quary_input_button.config(state=tk.DISABLED)
+                            case "Mine":
+                                mine_input_button.config(state=tk.DISABLED)
+                            case "Bauernhof":
+                                farm_input_button.config(state=tk.DISABLED)
+                            case "Bürogebäude":
+                                office_input_button.config(state=tk.DISABLED)
+                            case "Wohnhaus":
+                                flats_input_button.config(state=tk.DISABLED)
+
+    def upgrade_production(self, new_production_amount):
+        """Upgrade the production amount of the building."""
+        self.production_amount = new_production_amount
+
+    def upgrade_production_time(self, new_production_time):
+        """Upgrade the production time of the building."""
+        self.production_time = new_production_time
 
 class Game:
     """Main game class to manage resources and game state."""
@@ -115,51 +139,90 @@ if __name__ == "__main__":
 
     #create buildings
     woodmill = Building("Holzfällerhütte", price=10, consumption_type=None, consumption_amount=0, production_type=Resource.WOOD, production_amount=1, production_time=10)
-    quary = Building("Steinbruch", price=20, consumption_type=Resource.WOOD, consumption_amount=10, production_type=Resource.STONE, production_amount=1, production_time=10)
-    mine = Building("Mine", price=30, consumption_type=Resource.STONE, consumption_amount=10, production_type=Resource.STEEL, production_amount=1, production_time=10)
-    farm = Building("Bauernhof", price=40, consumption_type=Resource.WOOD, consumption_amount=10, production_type=Resource.FOOD, production_amount=1, production_time=10)
-    office = Building("Bürogebäude", price=50, consumption_type=(Resource.FOOD,Resource.STEEL), consumption_amount=10, production_type=Resource.MONEY, production_amount=1, production_time=10)
-    flats = Building("Wohnhaus", price=60, consumption_type=(Resource.FOOD,Resource.STONE), consumption_amount=10, production_type=Resource.MONEY, production_amount=0, production_time=0)
-    park = Building("Park", price=70, consumption_type=None, consumption_amount=0, production_type=None, production_amount=0, production_time=0)
+    quary = Building("Steinbruch", price=10, consumption_type=Resource.WOOD, consumption_amount=10, production_type=Resource.STONE, production_amount=1, production_time=10)
+    mine = Building("Mine", price=10, consumption_type=Resource.STONE, consumption_amount=10, production_type=Resource.STEEL, production_amount=1, production_time=10)
+    farm = Building("Bauernhof", price=10, consumption_type=Resource.WOOD, consumption_amount=10, production_type=Resource.FOOD, production_amount=1, production_time=10)
+    office = Building("Bürogebäude", price=10, consumption_type=(Resource.FOOD,Resource.STEEL), consumption_amount=10, production_type=Resource.MONEY, production_amount=1, production_time=10)
+    flats = Building("Wohnhaus", price=10, consumption_type=(Resource.FOOD,Resource.STONE), consumption_amount=10, production_type=Resource.MONEY, production_amount=0, production_time=0)
+    park = Building("Park", price=10, consumption_type=None, consumption_amount=0, production_type=None, production_amount=0, production_time=0)
 
     #building labels and buttons
-    woodmill_label = tk.Label(root, text=f"{woodmill.name} (Preis: {woodmill.price})", font=("Helvetica", 16))
+    woodmill_label = tk.Label(root, text=f"{woodmill.name}", font=("Helvetica", 16))
     woodmill_label.place(x=60, y=200)
-    woodmill_button = tk.Button(root, text="Bauen", command=lambda: game.build(woodmill))
+    woodmill_button = tk.Button(root, text="Bauen (10)", command=lambda: game.build(woodmill))
     woodmill_button.place(x=60, y=230)
 
-    quary_label = tk.Label(root, text=f"{quary.name} (Preis: {quary.price})", font=("Helvetica", 16))
+    quary_label = tk.Label(root, text=f"{quary.name}", font=("Helvetica", 16))
     quary_label.place(x=60, y=270)
-    quary_button = tk.Button(root, text="Bauen", command=lambda: game.build(quary))
+    quary_button = tk.Button(root, text="Bauen (10)", command=lambda: game.build(quary))
     quary_button.place(x=60, y=300)
 
-    mine_label = tk.Label(root, text=f"{mine.name} (Preis: {mine.price})", font=("Helvetica", 16))
+    mine_label = tk.Label(root, text=f"{mine.name}", font=("Helvetica", 16))
     mine_label.place(x=60, y=340)
-    mine_button = tk.Button(root, text="Bauen", command=lambda: game.build(mine))
+    mine_button = tk.Button(root, text="Bauen (10)", command=lambda: game.build(mine))
     mine_button.place(x=60, y=370)
 
-    farm_label = tk.Label(root, text=f"{farm.name} (Preis: {farm.price})", font=("Helvetica", 16))
+    farm_label = tk.Label(root, text=f"{farm.name}", font=("Helvetica", 16))
     farm_label.place(x=60, y=410)
-    farm_button = tk.Button(root, text="Bauen", command=lambda: game.build(farm))
+    farm_button = tk.Button(root, text="Bauen (10)", command=lambda: game.build(farm))
     farm_button.place(x=60, y=440)
 
-    office_label = tk.Label(root, text=f"{office.name} (Preis: {office.price})", font=("Helvetica", 16))
+    office_label = tk.Label(root, text=f"{office.name}", font=("Helvetica", 16))
     office_label.place(x=60, y=480)
-    office_button = tk.Button(root, text="Bauen", command=lambda: game.build(office))
+    office_button = tk.Button(root, text="Bauen (10)", command=lambda: game.build(office))
     office_button.place(x=60, y=510)
 
-    flats_label = tk.Label(root, text=f"{flats.name} (Preis: {flats.price})", font=("Helvetica", 16))
+    flats_label = tk.Label(root, text=f"{flats.name}", font=("Helvetica", 16))
     flats_label.place(x=60, y=550)
-    flats_button = tk.Button(root, text="Bauen", command=lambda: game.build(flats))
+    flats_button = tk.Button(root, text="Bauen (10)", command=lambda: game.build(flats))
     flats_button.place(x=60, y=580)
 
-    park_label = tk.Label(root, text=f"{park.name} (Preis: {park.price})", font=("Helvetica", 16))
+    park_label = tk.Label(root, text=f"{park.name}", font=("Helvetica", 16))
     park_label.place(x=60, y=620)
-    park_button = tk.Button(root, text="Bauen", command=lambda: game.build(park))
+    park_button = tk.Button(root, text="Bauen (10)", command=lambda: game.build(park))
     park_button.place(x=60, y=650)
 
     #building upgrade labels and buttons
 
+    #upgrade consumption buttons
+    quary_input_button = tk.Button(root, text="Verbrauch verringern", command=lambda: quary.upgrade_consumption())
+    quary_input_button.place(x=160, y=300)
+    mine_input_button = tk.Button(root, text="Verbrauch verringern", command=lambda: mine.upgrade_consumption())
+    mine_input_button.place(x=160, y=370)
+    farm_input_button = tk.Button(root, text="Verbrauch verringern", command=lambda: farm.upgrade_consumption())
+    farm_input_button.place(x=160, y=440)
+    office_input_button = tk.Button(root, text="Verbrauch verringern", command=lambda: office.upgrade_consumption())
+    office_input_button.place(x=160, y=510)
+    flats_input_button = tk.Button(root, text="Verbrauch verringern", command=lambda: flats.upgrade_consumption())
+    flats_input_button.place(x=160, y=580)
+
+    #upgrade_production_buttons
+    woodmill_output_button = tk.Button(root, text="Produktion erhöhen", command=lambda: woodmill.upgrade_production())
+    woodmill_output_button.place(x=360, y=230)
+    quary_output_button = tk.Button(root, text="Produktion erhöhen", command=lambda: quary.upgrade_production())
+    quary_output_button.place(x=360, y=300)
+    mine_output_button = tk.Button(root, text="Produktion erhöhen", command=lambda: mine.upgrade_production())
+    mine_output_button.place(x=360, y=370)
+    farm_output_button = tk.Button(root, text="Produktion erhöhen", command=lambda: farm.upgrade_production())
+    farm_output_button.place(x=360, y=440)
+    office_output_button = tk.Button(root, text="Produktion erhöhen", command=lambda: office.upgrade_production())
+    office_output_button.place(x=360, y=510)
+    flats_output_button = tk.Button(root, text="Produktion erhöhen", command=lambda: flats.upgrade_production())
+    flats_output_button.place(x=360, y=580)
+
+    #upgrade production time buttons
+    woodmill_time_button = tk.Button(root, text="Produktionszeit verringern", command=lambda: woodmill.upgrade_production_time())
+    woodmill_time_button.place(x=600, y=230)
+    quary_time_button = tk.Button(root, text="Produktionszeit verringern", command=lambda: quary.upgrade_production_time())
+    quary_time_button.place(x=600, y=300)
+    mine_time_button = tk.Button(root, text="Produktionszeit verringern", command=lambda: mine.upgrade_production_time())
+    mine_time_button.place(x=600, y=370)
+    farm_time_button = tk.Button(root, text="Produktionszeit verringern", command=lambda: farm.upgrade_production_time())
+    farm_time_button.place(x=600, y=440)
+    office_time_button = tk.Button(root, text="Produktionszeit verringern", command=lambda: office.upgrade_production_time())
+    office_time_button.place(x=600, y=510)
+    flats_time_button = tk.Button(root, text="Produktionszeit verringern", command=lambda: flats.upgrade_production_time())
+    flats_time_button.place(x=600, y=580)
 
     start = time.time()
 
@@ -183,11 +246,11 @@ if __name__ == "__main__":
                             if all(game.inventory[res] >= building.consumption_amount for res in building.consumption_type):
                                 for res in building.consumption_type:
                                     game.update_inventory(res, -building.consumption_amount)
-                                if elapsed_time % building.production_time == 0:
                                     game.update_inventory(building.production_type, building.production_amount)
-                        else:
-                            if game.inventory[building.consumption_type] >= building.consumption_amount:
-                                game.update_inventory(building.consumption_type, -building.consumption_amount)
+                        if game.inventory[building.consumption_type] >= building.consumption_amount:
+                            game.update_inventory(building.consumption_type, -building.consumption_amount)
+                            game.update_inventory(building.production_type, building.production_amount)
+                    else:
                         game.update_inventory(building.production_type, building.production_amount)
 
         root.after(1000, update_timer)  # schedule the next update in 1 second
