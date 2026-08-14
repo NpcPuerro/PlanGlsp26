@@ -11,11 +11,24 @@ class Resource(Enum):
     MONEY = 4
     STONE = 5
 
+class Building:
+    """Class representing a building in the game."""
+    def __init__(self, name, price, consumption_type=None, consumption_amount=0, production_type=None, production_amount=0, production_time=0):
+        self.name = name
+        self.price = price
+        self.consumption_type = consumption_type
+        self.consumption_amount = consumption_amount
+        self.production_type = production_type
+        self.production_amount = production_amount
+        self.production_time = production_time
+
+
 class Game:
     """Main game class to manage resources and game state."""
     def __init__(self):
         self.inventory = {resource: 0 for resource in Resource}
         self.running = True
+        self.buildings = []
 
     def update_inventory(self, resource, amount):
         """Update the inventory for a given resource."""
@@ -33,6 +46,17 @@ class Game:
         steel_label.config(text=f"Stahl: {self.inventory[Resource.STEEL]}")
         money_label.config(text=f"Geld: {self.inventory[Resource.MONEY]}")
         stone_label.config(text=f"Stein: {self.inventory[Resource.STONE]}")
+
+    def build(self, building):
+        """Attempt to build a building if enough resources are available."""
+        if self.inventory[Resource.MONEY] >= building.price:
+            self.update_inventory(Resource.MONEY, -building.price)
+            self.buildings.append(building)
+            # Additional logic for building construction can be added here
+            woodmill_button.config(state=tk.DISABLED)  # Disable the build button after construction
+
+        else:
+            print("Nicht genug Geld zum Bauen!")
         
         
 
@@ -40,15 +64,15 @@ class Game:
 if __name__ == "__main__":
     #setup
     game = Game()
-
-    #Layout oasch, Knöpfe weg bei allem außer Geld
     
+    #base game window
     root = tk.Tk()
     root.title("Plangeländespiel Verwaltung")
     root.geometry("800x600")
     timer_label = tk.Label(root, text="00:00:00", font=("Helvetica", 24))
     timer_label.place(x=350, y=20)
 
+    #resource labels
     money_label = tk.Label(root, text=f"Geld: {game.inventory[Resource.MONEY]}", font=("Helvetica", 16))
     money_label.place(x=60, y=100)
     wood_label = tk.Label(root, text=f"Holz: {game.inventory[Resource.WOOD]}", font=("Helvetica", 16))
@@ -72,6 +96,15 @@ if __name__ == "__main__":
     button_remove_ten_money = tk.Button(root, text="-10", command=lambda: game.update_inventory(Resource.MONEY, -10))
     button_remove_ten_money.place(x=100, y=160)
 
+    #create buildings
+    woodmill = Building("Holzfällerhütte", price=10, consumption_type=None, consumption_amount=0, production_type=Resource.WOOD, production_amount=1, production_time=5)
+
+    #building labels and buttons
+    woodmill_label = tk.Label(root, text=f"{woodmill.name} (Preis: {woodmill.price})", font=("Helvetica", 16))
+    woodmill_label.place(x=60, y=200)
+    woodmill_button = tk.Button(root, text="Bauen", command=lambda: game.build(woodmill))
+    woodmill_button.place(x=60, y=230)
+
     start = time.time()
 
     def update_timer():
@@ -84,6 +117,13 @@ if __name__ == "__main__":
         #entkommentieren, um fixes Ende festzusetzen
         #if elapsed_time >= 10:  
         #    on_closing()
+
+        #calculate production for each building
+        for building in game.buildings:
+            if building.production_type and building.production_amount > 0:
+                
+                if elapsed_time % building.production_time == 0:
+                    game.update_inventory(building.production_type, building.production_amount)
 
         root.after(1000, update_timer)  # schedule the next update in 1 second
     
