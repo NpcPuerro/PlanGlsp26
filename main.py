@@ -2,6 +2,7 @@ from enum import Enum
 import time
 import tkinter as tk
 import os
+from unittest import case
 
 class Resource(Enum):
     """Resource types for the game."""
@@ -53,7 +54,23 @@ class Game:
             self.update_inventory(Resource.MONEY, -building.price)
             self.buildings.append(building)
             # Additional logic for building construction can be added here
-            woodmill_button.config(state=tk.DISABLED)  # Disable the build button after construction
+            # Disable the build button after construction
+            match building.name:
+                case "Holzfällerhütte":
+                    woodmill_button.config(state=tk.DISABLED)
+                case "Steinbruch":
+                    quary_button.config(state=tk.DISABLED)
+                case "Mine":
+                    mine_button.config(state=tk.DISABLED)
+                case "Bauernhof":
+                    farm_button.config(state=tk.DISABLED)
+                case "Bürogebäude":
+                    office_button.config(state=tk.DISABLED)
+                case "Wohnhaus":
+                    flats_button.config(state=tk.DISABLED)
+                case "Park":
+                    park_button.config(state=tk.DISABLED)
+
 
         else:
             print("Nicht genug Geld zum Bauen!")
@@ -68,7 +85,7 @@ if __name__ == "__main__":
     #base game window
     root = tk.Tk()
     root.title("Plangeländespiel Verwaltung")
-    root.geometry("800x600")
+    root.geometry("800x700")
     timer_label = tk.Label(root, text="00:00:00", font=("Helvetica", 24))
     timer_label.place(x=350, y=20)
 
@@ -111,7 +128,35 @@ if __name__ == "__main__":
     woodmill_button = tk.Button(root, text="Bauen", command=lambda: game.build(woodmill))
     woodmill_button.place(x=60, y=230)
 
-    
+    quary_label = tk.Label(root, text=f"{quary.name} (Preis: {quary.price})", font=("Helvetica", 16))
+    quary_label.place(x=60, y=270)
+    quary_button = tk.Button(root, text="Bauen", command=lambda: game.build(quary))
+    quary_button.place(x=60, y=300)
+
+    mine_label = tk.Label(root, text=f"{mine.name} (Preis: {mine.price})", font=("Helvetica", 16))
+    mine_label.place(x=60, y=340)
+    mine_button = tk.Button(root, text="Bauen", command=lambda: game.build(mine))
+    mine_button.place(x=60, y=370)
+
+    farm_label = tk.Label(root, text=f"{farm.name} (Preis: {farm.price})", font=("Helvetica", 16))
+    farm_label.place(x=60, y=410)
+    farm_button = tk.Button(root, text="Bauen", command=lambda: game.build(farm))
+    farm_button.place(x=60, y=440)
+
+    office_label = tk.Label(root, text=f"{office.name} (Preis: {office.price})", font=("Helvetica", 16))
+    office_label.place(x=60, y=480)
+    office_button = tk.Button(root, text="Bauen", command=lambda: game.build(office))
+    office_button.place(x=60, y=510)
+
+    flats_label = tk.Label(root, text=f"{flats.name} (Preis: {flats.price})", font=("Helvetica", 16))
+    flats_label.place(x=60, y=550)
+    flats_button = tk.Button(root, text="Bauen", command=lambda: game.build(flats))
+    flats_button.place(x=60, y=580)
+
+    park_label = tk.Label(root, text=f"{park.name} (Preis: {park.price})", font=("Helvetica", 16))
+    park_label.place(x=60, y=620)
+    park_button = tk.Button(root, text="Bauen", command=lambda: game.build(park))
+    park_button.place(x=60, y=650)
 
     start = time.time()
 
