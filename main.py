@@ -97,13 +97,21 @@ if __name__ == "__main__":
     button_remove_ten_money.place(x=100, y=160)
 
     #create buildings
-    woodmill = Building("Holzfällerhütte", price=10, consumption_type=None, consumption_amount=0, production_type=Resource.WOOD, production_amount=1, production_time=5)
+    woodmill = Building("Holzfällerhütte", price=10, consumption_type=None, consumption_amount=0, production_type=Resource.WOOD, production_amount=1, production_time=10)
+    quary = Building("Steinbruch", price=20, consumption_type=Resource.WOOD, consumption_amount=10, production_type=Resource.STONE, production_amount=1, production_time=10)
+    mine = Building("Mine", price=30, consumption_type=Resource.STONE, consumption_amount=10, production_type=Resource.STEEL, production_amount=1, production_time=10)
+    farm = Building("Bauernhof", price=40, consumption_type=Resource.WOOD, consumption_amount=10, production_type=Resource.FOOD, production_amount=1, production_time=10)
+    office = Building("Bürogebäude", price=50, consumption_type=(Resource.FOOD,Resource.STEEL), consumption_amount=10, production_type=Resource.MONEY, production_amount=1, production_time=10)
+    flats = Building("Wohnhaus", price=60, consumption_type=(Resource.FOOD,Resource.STONE), consumption_amount=10, production_type=Resource.MONEY, production_amount=0, production_time=0)
+    park = Building("Park", price=70, consumption_type=None, consumption_amount=0, production_type=None, production_amount=0, production_time=0)
 
     #building labels and buttons
     woodmill_label = tk.Label(root, text=f"{woodmill.name} (Preis: {woodmill.price})", font=("Helvetica", 16))
     woodmill_label.place(x=60, y=200)
     woodmill_button = tk.Button(root, text="Bauen", command=lambda: game.build(woodmill))
     woodmill_button.place(x=60, y=230)
+
+    
 
     start = time.time()
 
