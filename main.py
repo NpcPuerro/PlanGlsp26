@@ -25,25 +25,25 @@ class Building:
 
     def upgrade_consumption(self):
         """Upgrade the consumption amount of the building."""
-        if game.inventory[Resource.MONEY] >= (6-self.consumption_amount)*10:
-            game.update_inventory(Resource.MONEY, -(6-self.consumption_amount)*10)
+        if game.inventory[Resource.MONEY] >= (7-self.consumption_amount)*5:
+            game.update_inventory(Resource.MONEY, -(7-self.consumption_amount)*5)
             if self.consumption_amount > 0:
                 self.consumption_amount -= 1
                 match self.name:
                     case "Steinbruch":
-                        quary_input_button.config(text=f"Verbrauch verringern ({(6-self.consumption_amount)*10}$)")
+                        quary_input_button.config(text=f"Verbrauch verringern ({(7-self.consumption_amount)*5}$)")
                         quary_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                     case "Mine":
-                        mine_input_button.config(text=f"Verbrauch verringern ({(6-self.consumption_amount)*10}$)")
+                        mine_input_button.config(text=f"Verbrauch verringern ({(7-self.consumption_amount)*5}$)")
                         mine_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                     case "Bauernhof":
-                        farm_input_button.config(text=f"Verbrauch verringern ({(6-self.consumption_amount)*10}$)")
+                        farm_input_button.config(text=f"Verbrauch verringern ({(7-self.consumption_amount)*5}$)")
                         farm_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                     case "Bürogebäude":
-                        office_input_button.config(text=f"Verbrauch verringern ({(6-self.consumption_amount)*10}$)")
+                        office_input_button.config(text=f"Verbrauch verringern ({(7-self.consumption_amount)*5}$)")
                         office_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                     case "Wohnhaus":
-                        flats_input_button.config(text=f"Verbrauch verringern ({(6-self.consumption_amount)*10}$)")
+                        flats_input_button.config(text=f"Verbrauch verringern ({(7-self.consumption_amount)*5}$)")
                         flats_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
             if self.consumption_amount == 1:
                 match self.name:
@@ -65,27 +65,27 @@ class Building:
 
     def upgrade_production(self):
         """Upgrade the production amount of the building."""
-        if game.inventory[Resource.MONEY] >= (2**(self.production_amount-1))*10:
-            game.update_inventory(Resource.MONEY, -(2**(self.production_amount-1))*10)
+        if game.inventory[Resource.MONEY] >= (int(1.5**(self.production_amount-1)))*10:
+            game.update_inventory(Resource.MONEY, -(int(1.5**(self.production_amount-1)))*10)
             self.production_amount += 1
             match self.name:
                 case "Holzfällerhütte":
-                    woodmill_output_button.config(text=f"Produktion erhöhen ({(2**(self.production_amount-1))*10}$)")
+                    woodmill_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
                     woodmill_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Steinbruch":
-                    quary_output_button.config(text=f"Produktion erhöhen ({(2**(self.production_amount-1))*10}$)")
+                    quary_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
                     quary_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Mine":
-                    mine_output_button.config(text=f"Produktion erhöhen ({(2**(self.production_amount-1))*10}$)")
+                    mine_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
                     mine_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Bauernhof":
-                    farm_output_button.config(text=f"Produktion erhöhen ({(2**(self.production_amount-1))*10}$)")
+                    farm_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
                     farm_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Bürogebäude":
-                    office_output_button.config(text=f"Produktion erhöhen ({(2**(self.production_amount-1))*10}$)")
+                    office_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
                     office_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Wohnhaus":
-                    flats_output_button.config(text=f"Produktion erhöhen ({(2**(self.production_amount-1))*10}$)")
+                    flats_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
                     flats_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
         else:
             print("Nicht genug Geld zum Upgraden!")
@@ -94,28 +94,28 @@ class Building:
 
     def upgrade_production_time(self):
         """Upgrade the production time of the building."""
-        if game.inventory[Resource.MONEY] >= (6-self.production_time)*10:
-            game.update_inventory(Resource.MONEY, -(6-self.production_time)*10)
+        if game.inventory[Resource.MONEY] >= (7-self.production_time)*5:
+            game.update_inventory(Resource.MONEY, -(7-self.production_time)*5)
             if self.production_time > 0:
                     self.production_time -= 1
                     match self.name:
                         case "Holzfällerhütte":
-                            woodmill_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
+                            woodmill_time_button.config(text=f"Produktionszeit verringern ({(7-self.production_time)*5}$)")
                             woodmill_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Steinbruch":
-                            quary_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
+                            quary_time_button.config(text=f"Produktionszeit verringern ({(7-self.production_time)*5}$)")
                             quary_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Mine":
-                            mine_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
+                            mine_time_button.config(text=f"Produktionszeit verringern ({(7-self.production_time)*5}$)")
                             mine_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Bauernhof":
-                            farm_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
+                            farm_time_button.config(text=f"Produktionszeit verringern ({(7-self.production_time)*5}$)")
                             farm_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Bürogebäude":
-                            office_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
+                            office_time_button.config(text=f"Produktionszeit verringern ({(7-self.production_time)*5}$)")
                             office_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Wohnhaus":
-                            flats_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
+                            flats_time_button.config(text=f"Produktionszeit verringern ({(7-self.production_time)*5}$)")
                             flats_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
             if self.production_time == 1:
                 match self.name:
