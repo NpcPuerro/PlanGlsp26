@@ -57,6 +57,11 @@ class Building:
                         office_input_button.config(state=tk.DISABLED)
                     case "Wohnhaus":
                         flats_input_button.config(state=tk.DISABLED)
+        else:
+            print("Nicht genug Geld zum Upgraden!")
+            warn_label.place(x=200, y=60)  # show the warning label
+            root.after(800, lambda: warn_label.place_forget())
+
 
     def upgrade_production(self):
         """Upgrade the production amount of the building."""
@@ -82,31 +87,35 @@ class Building:
                 case "Wohnhaus":
                     flats_output_button.config(text=f"Produktion erhöhen ({(2**(self.production_amount-1))*10}$)")
                     flats_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
+        else:
+            print("Nicht genug Geld zum Upgraden!")
+            warn_label.place(x=200, y=60)  # show the warning label
+            root.after(800, lambda: warn_label.place_forget())
 
     def upgrade_production_time(self):
         """Upgrade the production time of the building."""
-        if game.inventory[Resource.MONEY] >= (11-self.production_time)*10:
-            game.update_inventory(Resource.MONEY, -(11-self.production_time)*10)
+        if game.inventory[Resource.MONEY] >= (6-self.production_time)*10:
+            game.update_inventory(Resource.MONEY, -(6-self.production_time)*10)
             if self.production_time > 0:
                     self.production_time -= 1
                     match self.name:
                         case "Holzfällerhütte":
-                            woodmill_time_button.config(text=f"Produktionszeit verringern ({(11-self.production_time)*10}$)")
+                            woodmill_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
                             woodmill_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Steinbruch":
-                            quary_time_button.config(text=f"Produktionszeit verringern ({(11-self.production_time)*10}$)")
+                            quary_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
                             quary_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Mine":
-                            mine_time_button.config(text=f"Produktionszeit verringern ({(11-self.production_time)*10}$)")
+                            mine_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
                             mine_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Bauernhof":
-                            farm_time_button.config(text=f"Produktionszeit verringern ({(11-self.production_time)*10}$)")
+                            farm_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
                             farm_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Bürogebäude":
-                            office_time_button.config(text=f"Produktionszeit verringern ({(11-self.production_time)*10}$)")
+                            office_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
                             office_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                         case "Wohnhaus":
-                            flats_time_button.config(text=f"Produktionszeit verringern ({(11-self.production_time)*10}$)")
+                            flats_time_button.config(text=f"Produktionszeit verringern ({(6-self.production_time)*10}$)")
                             flats_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
             if self.production_time == 1:
                 match self.name:
@@ -122,6 +131,10 @@ class Building:
                         office_time_button.config(state=tk.DISABLED)
                     case "Wohnhaus":
                         flats_time_button.config(state=tk.DISABLED)
+        else:
+            print("Nicht genug Geld zum Upgraden!")
+            warn_label.place(x=200, y=60)  # show the warning label
+            root.after(800, lambda: warn_label.place_forget())
 
 class Game:
     """Main game class to manage resources and game state."""
@@ -172,9 +185,9 @@ class Game:
 
 
         else:
-            print("Nicht genug Geld zum Bauen!")
-        
-        
+            print("Nicht genug Geld, um das zu bauen!")
+            warn_label.place(x=200, y=60)  # show the warning label
+            root.after(800, lambda: warn_label.place_forget())
 
 
 if __name__ == "__main__":
@@ -187,6 +200,12 @@ if __name__ == "__main__":
     root.geometry("800x700")
     timer_label = tk.Label(root, text="00:00:00", font=("Helvetica", 24))
     timer_label.place(x=350, y=20)
+
+    warn_label = tk.Label(root, text="Warnung: Nicht genug Geld, um das zu kaufen!", font=("Helvetica", 12), fg="red")
+    warn_label.place(x=200, y=60)
+    warn_label.config(fg="red")
+    warn_label.place_forget()  # initially hide the warning label
+
 
     #resource labels
     money_label = tk.Label(root, text=f"Geld: {game.inventory[Resource.MONEY]}", font=("Helvetica", 16))
