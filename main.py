@@ -170,16 +170,33 @@ class Game:
             match building.name:
                 case "Holzfällerhütte":
                     woodmill_button.config(state=tk.DISABLED)
+                    woodmill_time_button.config(state=tk.NORMAL)
+                    woodmill_output_button.config(state=tk.NORMAL)
                 case "Steinbruch":
                     quary_button.config(state=tk.DISABLED)
+                    quary_time_button.config(state=tk.NORMAL)
+                    quary_output_button.config(state=tk.NORMAL)
+                    quary_input_button.config(state=tk.NORMAL)
                 case "Mine":
                     mine_button.config(state=tk.DISABLED)
+                    mine_time_button.config(state=tk.NORMAL)
+                    mine_output_button.config(state=tk.NORMAL)
+                    mine_input_button.config(state=tk.NORMAL)
                 case "Bauernhof":
                     farm_button.config(state=tk.DISABLED)
+                    farm_time_button.config(state=tk.NORMAL)
+                    farm_output_button.config(state=tk.NORMAL)
+                    farm_input_button.config(state=tk.NORMAL)
                 case "Bürogebäude":
                     office_button.config(state=tk.DISABLED)
+                    office_time_button.config(state=tk.NORMAL)
+                    office_output_button.config(state=tk.NORMAL)
+                    office_input_button.config(state=tk.NORMAL)
                 case "Wohnhaus":
                     flats_button.config(state=tk.DISABLED)
+                    flats_time_button.config(state=tk.NORMAL)
+                    flats_output_button.config(state=tk.NORMAL)
+                    flats_input_button.config(state=tk.NORMAL)
                 case "Park":
                     park_button.config(state=tk.DISABLED)
 
@@ -238,7 +255,7 @@ if __name__ == "__main__":
     farm = Building("Bauernhof", price=10, consumption_type=Resource.WOOD, consumption_amount=5, production_type=Resource.FOOD, production_amount=1, production_time=10)
     office = Building("Bürogebäude", price=10, consumption_type=(Resource.FOOD,Resource.STEEL), consumption_amount=5, production_type=Resource.MONEY, production_amount=1, production_time=10)
     flats = Building("Wohnhaus", price=10, consumption_type=(Resource.FOOD,Resource.STONE), consumption_amount=5, production_type=Resource.MONEY, production_amount=1, production_time=10)
-    park = Building("Park", price=10, consumption_type=None, consumption_amount=0, production_type=None, production_amount=0, production_time=100)
+    park = Building("Park", price=100, consumption_type=None, consumption_amount=0, production_type=None, production_amount=0, production_time=100)
 
     #building labels and buttons
     woodmill_label = tk.Label(root, text=f"{woodmill.name}({woodmill.consumption_amount}/{woodmill.production_amount}/{woodmill.production_time})", font=("Helvetica", 16))
@@ -271,9 +288,9 @@ if __name__ == "__main__":
     flats_button = tk.Button(root, text="Bauen (10$)", command=lambda: game.build(flats))
     flats_button.place(x=60, y=580)
 
-    park_label = tk.Label(root, text=f"{park.name}({park.consumption_amount}/{park.production_amount}/{park.production_time})", font=("Helvetica", 16))
+    park_label = tk.Label(root, text=f"{park.name}", font=("Helvetica", 16))
     park_label.place(x=60, y=620)
-    park_button = tk.Button(root, text="Bauen (10$)", command=lambda: game.build(park))
+    park_button = tk.Button(root, text="Bauen (100$)", command=lambda: game.build(park))
     park_button.place(x=60, y=650)
 
     #building upgrade labels and buttons
@@ -281,42 +298,59 @@ if __name__ == "__main__":
     #upgrade consumption buttons
     quary_input_button = tk.Button(root, text="Verbrauch verringern (10$)", command=lambda: quary.upgrade_consumption())
     quary_input_button.place(x=160, y=300)
+    quary_input_button.config(state=tk.DISABLED)  # disable the button initially
     mine_input_button = tk.Button(root, text="Verbrauch verringern (10$)", command=lambda: mine.upgrade_consumption())
     mine_input_button.place(x=160, y=370)
+    mine_input_button.config(state=tk.DISABLED)  # disable the button initially
     farm_input_button = tk.Button(root, text="Verbrauch verringern (10$)", command=lambda: farm.upgrade_consumption())
     farm_input_button.place(x=160, y=440)
+    farm_input_button.config(state=tk.DISABLED)  # disable the button initially
     office_input_button = tk.Button(root, text="Verbrauch verringern (10$)", command=lambda: office.upgrade_consumption())
     office_input_button.place(x=160, y=510)
+    office_input_button.config(state=tk.DISABLED)  # disable the button initially
     flats_input_button = tk.Button(root, text="Verbrauch verringern (10$)", command=lambda: flats.upgrade_consumption())
     flats_input_button.place(x=160, y=580)
+    flats_input_button.config(state=tk.DISABLED)  # disable the button initially
 
     #upgrade_production_buttons
     woodmill_output_button = tk.Button(root, text="Produktion erhöhen (10$)", command=lambda: woodmill.upgrade_production())
     woodmill_output_button.place(x=360, y=230)
+    woodmill_output_button.config(state=tk.DISABLED)  # disable the button initially
     quary_output_button = tk.Button(root, text="Produktion erhöhen (10$)", command=lambda: quary.upgrade_production())
     quary_output_button.place(x=360, y=300)
+    quary_output_button.config(state=tk.DISABLED)  # disable the button initially
     mine_output_button = tk.Button(root, text="Produktion erhöhen (10$)", command=lambda: mine.upgrade_production())
     mine_output_button.place(x=360, y=370)
+    mine_output_button.config(state=tk.DISABLED)  # disable the button initially
     farm_output_button = tk.Button(root, text="Produktion erhöhen (10$)", command=lambda: farm.upgrade_production())
     farm_output_button.place(x=360, y=440)
+    farm_output_button.config(state=tk.DISABLED)  # disable the button initially
     office_output_button = tk.Button(root, text="Produktion erhöhen (10$)", command=lambda: office.upgrade_production())
     office_output_button.place(x=360, y=510)
+    office_output_button.config(state=tk.DISABLED)  # disable the button initially
     flats_output_button = tk.Button(root, text="Produktion erhöhen (10$)", command=lambda: flats.upgrade_production())
     flats_output_button.place(x=360, y=580)
+    flats_output_button.config(state=tk.DISABLED)  # disable the button initially
 
     #upgrade production time buttons
     woodmill_time_button = tk.Button(root, text="Produktionszeit verringern (10$)", command=lambda: woodmill.upgrade_production_time())
     woodmill_time_button.place(x=600, y=230)
+    woodmill_time_button.config(state=tk.DISABLED)  # disable the button initially
     quary_time_button = tk.Button(root, text="Produktionszeit verringern (10$)", command=lambda: quary.upgrade_production_time())
     quary_time_button.place(x=600, y=300)
+    quary_time_button.config(state=tk.DISABLED)  # disable the button initially
     mine_time_button = tk.Button(root, text="Produktionszeit verringern (10$)", command=lambda: mine.upgrade_production_time())
     mine_time_button.place(x=600, y=370)
+    mine_time_button.config(state=tk.DISABLED)  # disable the button initially
     farm_time_button = tk.Button(root, text="Produktionszeit verringern (10$)", command=lambda: farm.upgrade_production_time())
     farm_time_button.place(x=600, y=440)
+    farm_time_button.config(state=tk.DISABLED)  # disable the button initially
     office_time_button = tk.Button(root, text="Produktionszeit verringern (10$)", command=lambda: office.upgrade_production_time())
     office_time_button.place(x=600, y=510)
+    office_time_button.config(state=tk.DISABLED)  # disable the button initially
     flats_time_button = tk.Button(root, text="Produktionszeit verringern (10$)", command=lambda: flats.upgrade_production_time())
     flats_time_button.place(x=600, y=580)
+    flats_time_button.config(state=tk.DISABLED)  # disable the button initially
 
     start = time.time()
 
