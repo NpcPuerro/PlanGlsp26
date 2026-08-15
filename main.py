@@ -391,10 +391,12 @@ if __name__ == "__main__":
     update_timer()
 
     def on_closing():
-        with open("resources.txt", "w") as f:
+        with open("inventory.txt", "w") as f:
             f.write("Vergangene Zeit: " + timer_label.cget("text") + "\n")
             for resource, amount in game.inventory.items():
                 f.write(f"{resource.name}: {amount}\n")
+            for building in game.buildings:
+                f.write(f"{building.name}: ({building.consumption_amount}/{building.production_amount}/{building.production_time})\n")
 
         root.destroy()
 
