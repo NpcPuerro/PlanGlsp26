@@ -65,27 +65,27 @@ class Building:
 
     def upgrade_production(self):
         """Upgrade the production amount of the building."""
-        if game.inventory[Resource.MONEY] >= (int(1.5**(self.production_amount-1)))*10:
-            game.update_inventory(Resource.MONEY, -(int(1.5**(self.production_amount-1)))*10)
+        if game.inventory[Resource.MONEY] >= int((1.5**(self.production_amount-1))*10):
+            game.update_inventory(Resource.MONEY, -(int((1.5**(self.production_amount-1))*10)))
             self.production_amount += 1
             match self.name:
                 case "Holzfällerhütte":
-                    woodmill_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
+                    woodmill_output_button.config(text=f"Produktion erhöhen ({int((1.5**(self.production_amount-1))*10)}$)")
                     woodmill_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Steinbruch":
-                    quary_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
+                    quary_output_button.config(text=f"Produktion erhöhen ({int((1.5**(self.production_amount-1))*10)}$)")
                     quary_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Mine":
-                    mine_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
+                    mine_output_button.config(text=f"Produktion erhöhen ({int((1.5**(self.production_amount-1))*10)}$)")
                     mine_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Bauernhof":
-                    farm_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
+                    farm_output_button.config(text=f"Produktion erhöhen ({int((1.5**(self.production_amount-1))*10)}$)")
                     farm_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Bürogebäude":
-                    office_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
+                    office_output_button.config(text=f"Produktion erhöhen ({int((1.5**(self.production_amount-1))*10)}$)")
                     office_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
                 case "Wohnhaus":
-                    flats_output_button.config(text=f"Produktion erhöhen ({(int(1.5**(self.production_amount-1)))*10}$)")
+                    flats_output_button.config(text=f"Produktion erhöhen ({int((1.5**(self.production_amount-1))*10)}$)")
                     flats_label.config(text=f"{self.name}({self.consumption_amount}/{self.production_amount}/{self.production_time})")
         else:
             print("Nicht genug Geld zum Upgraden!")
@@ -328,8 +328,8 @@ if __name__ == "__main__":
         timer_label.config(text=f"{hours:02d}:{minutes:02d}:{seconds:02d}")
 
         #entkommentieren, um fixes Ende festzusetzen
-        #if elapsed_time >= 10:  
-        #    on_closing()
+        if elapsed_time >= 3600:  
+            on_closing()
 
         #calculate production for each building
         for building in game.buildings:
