@@ -1,8 +1,6 @@
 from enum import Enum
 import time
 import tkinter as tk
-import os
-from unittest import case
 
 class Resource(Enum):
     """Resource types for the game."""
@@ -403,8 +401,3 @@ if __name__ == "__main__":
     root.protocol("WM_DELETE_WINDOW", on_closing)
     
     root.mainloop()
-
-
-
-
-    
