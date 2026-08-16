@@ -247,12 +247,12 @@ if __name__ == "__main__":
     button_remove_ten_money.place(x=100, y=160)
 
     #create buildings
-    woodmill = Building("Holzfällerhütte", price=10, consumption_type=None, consumption_amount=0, production_type=Resource.WOOD, production_amount=1, production_time=10)
-    quary = Building("Steinbruch", price=10, consumption_type=Resource.WOOD, consumption_amount=5, production_type=Resource.STONE, production_amount=1, production_time=10)
-    mine = Building("Mine", price=10, consumption_type=Resource.STONE, consumption_amount=5, production_type=Resource.STEEL, production_amount=1, production_time=10)
-    farm = Building("Bauernhof", price=10, consumption_type=Resource.WOOD, consumption_amount=5, production_type=Resource.FOOD, production_amount=1, production_time=10)
-    office = Building("Bürogebäude", price=10, consumption_type=(Resource.FOOD,Resource.STEEL), consumption_amount=5, production_type=Resource.MONEY, production_amount=1, production_time=10)
-    flats = Building("Wohnhaus", price=10, consumption_type=(Resource.FOOD,Resource.STONE), consumption_amount=5, production_type=Resource.MONEY, production_amount=1, production_time=10)
+    woodmill = Building("Holzfällerhütte", price=10, consumption_type=None, consumption_amount=0, production_type=Resource.WOOD, production_amount=1, production_time=5)
+    quary = Building("Steinbruch", price=10, consumption_type=Resource.WOOD, consumption_amount=5, production_type=Resource.STONE, production_amount=1, production_time=5)
+    mine = Building("Mine", price=10, consumption_type=Resource.STONE, consumption_amount=5, production_type=Resource.STEEL, production_amount=1, production_time=5)
+    farm = Building("Bauernhof", price=10, consumption_type=Resource.WOOD, consumption_amount=5, production_type=Resource.FOOD, production_amount=1, production_time=5)
+    office = Building("Bürogebäude", price=10, consumption_type=(Resource.FOOD,Resource.STEEL), consumption_amount=5, production_type=Resource.MONEY, production_amount=1, production_time=5)
+    flats = Building("Wohnhaus", price=10, consumption_type=(Resource.FOOD,Resource.STONE), consumption_amount=5, production_type=Resource.MONEY, production_amount=1, production_time=5)
     park = Building("Park", price=100, consumption_type=None, consumption_amount=0, production_type=None, production_amount=0, production_time=100)
 
     #building labels and buttons
